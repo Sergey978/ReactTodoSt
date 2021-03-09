@@ -10,34 +10,11 @@ export default class TodoListItem extends Component {
     };
 
 
-
-    onLabelClick = () => {
-        this.setState(({done}) => {
-            return {
-                // setState must recive state, if we want use current state 
-                //component for correct operation due optimization react
-
-                done: !done
-            }
-        });
-    }
-
-
-    onMarkImportant = () => {
-        this.setState(({important}) => {
-            return {
-                // setState must recive state, if we want use current state 
-                //component for correct operation due optimization react
-
-                important: !important
-            };
-        });
-
-    }
-
     render() {
-        const { label, onDeleted } = this.props;
-        const { done, important } = this.state;
+        const { label, onDeleted,
+            onToggleImportant, onToggleDone,
+            important, done } = this.props;
+
 
         let classNames = 'todo-list-item';
         if (done) { classNames += ' done' }
@@ -48,18 +25,18 @@ export default class TodoListItem extends Component {
             <span className={classNames}>
                 <span
                     className="todo-list-item-label"
-                    onClick={this.onLabelClick}
+                    onClick={onToggleDone}
                 >
                     {label}
                 </span>
                 <button type="button"
                     className="btn btn-outline-success btn-sm float-right"
-                    onClick={this.onMarkImportant}>
+                    onClick={onToggleImportant}>
                     <i className="fa fa-exclamation" />
                 </button>
                 <button type="button"
                     className="btn btn-outline-danger btn-sm float-right"
-                    onClick= {onDeleted}>
+                    onClick={onDeleted}>
                     <i className="fa fa-trash-o" />
                 </button>
 

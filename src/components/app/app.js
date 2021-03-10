@@ -67,7 +67,7 @@ export default class extends Component {
             //1. update object
             const oldItem = todoData[idx];
             // new object with toggled done, to prevent changing old object
-            const newItem = {... oldItem, important: !oldItem.important};
+            const newItem = {...oldItem, important: !oldItem.important};
             //2.  construct new array
             const before = todoData.slice(0, idx);
             const after = todoData.slice(idx + 1);
@@ -83,7 +83,26 @@ export default class extends Component {
     }
 
     onToggleDone = (id) => {
-        console.log('Toggle Done', id);
+        this.setState(({ todoData }) => {
+
+            const idx = todoData.findIndex((el) => el.id === id);
+
+            //1. update object
+            const oldItem = todoData[idx];
+            // new object with toggled done, to prevent changing old object
+            const newItem = {...oldItem, done: !oldItem.done};
+            //2.  construct new array
+            const before = todoData.slice(0, idx);
+            const after = todoData.slice(idx + 1);
+            const newArray = [...before, newItem,...after];
+
+            return {
+                todoData: newArray
+            };
+
+
+        })
+        
     }
 
     render() {
